@@ -1,0 +1,26 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 25905d639e6e7f5a2e4034c9679df6bc8aab9be11455e90439942094051423b5
+
+name:           colored-cli
+version:        0.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/colored-cli#readme>
+build-type:     Simple
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_colored_cli
+  hs-source-dirs:
+      src
+  build-depends:
+      ansi-terminal
+    , base >=4.7 && <5
+    , megaparsec
+    , parser-combinators
+  default-language: Haskell2010

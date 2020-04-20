@@ -1,0 +1,12 @@
+name:                colored-cli
+
+description:         Please see the README on GitHub at <https://github.com/githubuser/colored-cli#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- ansi-terminal
+- megaparsec
+- parser-combinators
+
+library:
+  source-dirs: src
