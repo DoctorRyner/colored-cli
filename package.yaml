@@ -8,5 +8,16 @@ dependencies:
 - megaparsec
 - parser-combinators
 
+default-extensions:
+- LambdaCase
+
+ghc-options:
+- -Wall
+- -Wno-unused-do-bind
+- -Wno-name-shadowing
+- -Werror=incomplete-patterns
+
 library:
   source-dirs: src
+  exposed-modules:
+  - CLI.Colored

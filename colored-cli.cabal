@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 25905d639e6e7f5a2e4034c9679df6bc8aab9be11455e90439942094051423b5
+-- hash: 94f398babaa5aa9cc47ec1fa0f722395e71ca15f2e49e68cd2c1c3e6f55e8a8b
 
 name:           colored-cli
 version:        0.0.0
@@ -13,11 +13,15 @@ build-type:     Simple
 
 library
   exposed-modules:
-      Lib
+      CLI.Colored
   other-modules:
+      CLI.Colored.Parser
+      CLI.Colored.Types
       Paths_colored_cli
   hs-source-dirs:
       src
+  default-extensions: LambdaCase
+  ghc-options: -Wall -Wno-unused-do-bind -Wno-name-shadowing -Werror=incomplete-patterns
   build-depends:
       ansi-terminal
     , base >=4.7 && <5
