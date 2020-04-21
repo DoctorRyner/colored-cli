@@ -32,19 +32,23 @@ coloredText = do
     else do
         char '#'
         color <- color
-        text  <- between (char '('                   )
-                         (char ')'                   )
-                         (many $ satisfy (/= ')')    )
+        text  <- between (char '('               )
+                         (char ')'               )
+                         (choice [ try $ between (char '\'') (char '\'') $ many $ satisfy (/= '\'')
+                                 , many $ satisfy (/= ')')
+                                 ]
+                         )
 
         pure $ Colored text color
 
+anyChar :: Parser Char
+anyChar = satisfy (const True)
+
 coloredStep :: Parser [Colored]
 coloredStep = do
-    (text, maybeColoredText) <- (satisfy (const True)) `someTill_` optional coloredText
+    (text, coloredText) <- anyChar `someTill_` (coloredText <|> Plain "" <$ eof)
     next <- optional coloredStep
-    case maybeColoredText of
-        Just coloredText -> pure $ [Plain text, coloredText] ++ fromMaybe [] next
-        Nothing          -> pure $ [Plain text] ++ fromMaybe [] next
+    pure $ [Plain text, coloredText] ++ fromMaybe [] next
 
 colored :: Parser [Colored]
 colored = optional coloredText >>= \case Just coloredText -> ([coloredText] ++) <$> coloredStep
