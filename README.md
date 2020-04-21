@@ -4,7 +4,14 @@ This utility allows you to output colored text with ease
 
 ## Examples
 
-Write a string to the standard output device with ansi colors support. You can use next colors: red, black, green, yellow, blue, magenta, cyan and white
+It's better if you hide Prelude functions and expose these like this:
+
+```haskell
+import Prelude hiding (putStr, putStrLn, print)
+import CLI.Colored
+```
+
+Write a string to the standard output device with ansi colors support. You can use next colors: `red`, `black`, `green`, `yellow`, `blue`, `magenta`, `cyan` and `white`
 
 ```haskell
 >>> putStr "Hello"
@@ -28,5 +35,5 @@ A word `this` will be displayed as black and `blue` as blue
 Hello #
 ```
 
-You must use \\ to be able to contain # because otherwise it'be a syntax error
+You must use double \\ to be able to contain # because otherwise it'be a syntax error
 
