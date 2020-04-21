@@ -21,7 +21,7 @@ Hello
 Hello
 ```
 
-But this time `Hello` will be red
+But the second time `Hello` will be red
 
 ```haskell
 >>> putStr "Hello, #black(this) will be #blue(blue)"
