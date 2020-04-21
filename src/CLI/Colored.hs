@@ -9,12 +9,6 @@ import           Text.Megaparsec
 import           CLI.Colored.Parser
 import           CLI.Colored.Types
 
-put :: String -> Color -> IO ()
-put text color = do
-    setSGR [SetColor Foreground Vivid color]
-    Prelude.putStr text
-    setSGR [Reset]
-
 -- | Write a string to the standard output device with ansi colors support. You can use next colors: red, black, green, yellow, blue, magenta, cyan and white
 --
 -- ==== __Examples__
@@ -41,8 +35,11 @@ putStr text = case parse colored "" text of
     Right coloredTexts -> mapM_ printColored coloredTexts
     Left  err          -> Prelude.putStr $ errorBundlePretty err
   where
-    printColored = \case Plain   text       -> setSGR [Reset] >> Prelude.putStr text
-                         Colored text color -> put text color
+    printColored = \case Plain   text       -> do setSGR [Reset]
+                                                  Prelude.putStr text
+                         Colored text color -> do setSGR [SetColor Foreground Vivid color]
+                                                  Prelude.putStr text
+                                                  setSGR [Reset]
 
 -- | The same as 'putStr', but adds a newline character
 putStrLn :: String -> IO ()
