@@ -35,8 +35,7 @@ putStr text = case parse colored "" text of
     Right coloredTexts -> mapM_ printColored coloredTexts
     Left  err          -> Prelude.putStr $ errorBundlePretty err
   where
-    printColored = \case Plain   text       -> do setSGR [Reset]
-                                                  Prelude.putStr text
+    printColored = \case Plain   text       -> Prelude.putStr text
                          Colored text color -> do setSGR [SetColor Foreground Vivid color]
                                                   Prelude.putStr text
                                                   setSGR [Reset]
