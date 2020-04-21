@@ -28,7 +28,7 @@ coloredText = do
     maybeEscape <- try $ optional $ char '\\'
 
     if isJust maybeEscape
-    then fail "Syntax error"
+    then pure $ Plain ""
     else do
         char '#'
         color <- color
@@ -38,10 +38,14 @@ coloredText = do
 
         pure $ Colored text color
 
-colored :: Parser [Colored]
-colored = do
+coloredStep :: Parser [Colored]
+coloredStep = do
     (text, maybeColoredText) <- (satisfy (const True)) `someTill_` optional coloredText
-    next <- optional colored
+    next <- optional coloredStep
     case maybeColoredText of
         Just coloredText -> pure $ [Plain text, coloredText] ++ fromMaybe [] next
         Nothing          -> pure $ [Plain text] ++ fromMaybe [] next
+
+colored :: Parser [Colored]
+colored = optional coloredText >>= \case Just coloredText -> ([coloredText] ++) <$> coloredStep
+                                         Nothing          -> coloredStep
